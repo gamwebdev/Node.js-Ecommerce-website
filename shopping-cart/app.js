@@ -13,6 +13,11 @@ var index         = require('./routes/index');
 var app           = express();
 
 mongoose.connect('mongodb://localhost/shopping', { useMongoClient: true });
+mongoose.connection.once('open', function(){
+    console.log('connection has been made successfully');
+  }).on('error', function(error){
+    console.log('connection has been terminated');
+  });
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layouts', extname: '.hbs'}));
