@@ -1,4 +1,7 @@
+var Product = require('./../models/product.js');
+
 const mongoose 	  = require('mongoose');
+const assert      = require('assert');
 mongoose.Promise  = global.Promise;
 
 mongoose.connect('mongodb://localhost/shopping', { useMongoClient: true });
@@ -8,7 +11,7 @@ mongoose.connection.once('open', function(){
     console.log('connection has been terminated');
 });
 
-var Product = require(../models/product.js);
+
 
 var products = [
 
