@@ -7,6 +7,7 @@ var bodyParser    = require('body-parser');
 var expressHbs    = require('express-handlebars');
 const mongoose 	  = require('mongoose');
 mongoose.Promise  = global.Promise;
+var session       = require('express-session');
 
 var index         = require('./routes/index');
 
@@ -29,6 +30,7 @@ app.use(logger('dev')); // app.use is basically a middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret: 'mysupersecret', resave: false, saveUninitialised: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
