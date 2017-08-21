@@ -12,7 +12,7 @@ var passport      = require('passport');
 var flash         = require('connect-flash');
 
 var index         = require('./routes/index');
-
+var configPassport          = require('./config/passport');
 var app           = express();
 
 mongoose.connect('mongodb://localhost/shopping', { useMongoClient: true });
