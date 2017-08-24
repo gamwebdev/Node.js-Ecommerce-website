@@ -1,19 +1,19 @@
-var express       = require('express');
-var path          = require('path');
-var favicon       = require('serve-favicon');
-var logger        = require('morgan');
-var cookieParser  = require('cookie-parser');
-var bodyParser    = require('body-parser');
-var expressHbs    = require('express-handlebars');
-const mongoose 	  = require('mongoose');
-mongoose.Promise  = global.Promise;
-var session       = require('express-session');
-var passport      = require('passport');
-var flash         = require('connect-flash');
+var express           = require('express');
+var path              = require('path');
+var favicon           = require('serve-favicon');
+var logger            = require('morgan');
+var cookieParser      = require('cookie-parser');
+var bodyParser        = require('body-parser');
+var expressHbs        = require('express-handlebars');
+const mongoose 	      = require('mongoose');
+mongoose.Promise      = global.Promise;
+var session           = require('express-session');
+var passport          = require('passport');
+var flash             = require('connect-flash');
 
-var index         = require('./routes/index');
-var configPassport          = require('./config/passport');
-var app           = express();
+var index             = require('./routes/index');
+var configPassport    = require('./config/passport');
+var app               = express();
 
 mongoose.connect('mongodb://localhost/shopping', { useMongoClient: true });
 mongoose.connection.once('open', function(){
@@ -33,7 +33,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
