@@ -10,7 +10,6 @@ mongoose.Promise      = global.Promise;
 var session           = require('express-session');
 var passport          = require('passport');
 var flash             = require('connect-flash');
-
 var index             = require('./routes/index');
 
 var app               = express();
@@ -20,7 +19,7 @@ mongoose.connection.once('open', function(){
     console.log('connection has been made successfully');
   }).on('error', function(error){
     console.log('connection has been terminated');
-  });
+});
 
 var configPassport    = require('./config/passport');
 
