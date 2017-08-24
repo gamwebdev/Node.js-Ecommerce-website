@@ -12,7 +12,7 @@ var passport          = require('passport');
 var flash             = require('connect-flash');
 
 var index             = require('./routes/index');
-var configPassport    = require('./config/passport');
+
 var app               = express();
 
 mongoose.connect('mongodb://localhost/shopping', { useMongoClient: true });
@@ -21,6 +21,8 @@ mongoose.connection.once('open', function(){
   }).on('error', function(error){
     console.log('connection has been terminated');
   });
+
+var configPassport    = require('./config/passport');
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layouts', extname: '.hbs'}));
@@ -33,6 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
