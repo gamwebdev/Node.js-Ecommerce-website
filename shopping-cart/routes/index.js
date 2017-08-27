@@ -24,8 +24,11 @@ router.get('/', function(req, res, next) {
   
 });
 
+
+
 router.get('/user/signup', function(req, res, next){
-	res.render('users/signup', {csrfToken : req.csrfToken()});
+  var messages = req.flash('error');
+	res.render('users/signup', {csrfToken : req.csrfToken(), messages : messages, hasErrors : messages.length > 0});
 });
 
 router.post('/user/signup', passport.authenticate('local.signup', {
