@@ -37,9 +37,9 @@ router.post('/user/signup', passport.authenticate('local.signup', {
 	failureFlash	: true
 }));
 
-routrer.get('/user/signin', function(req, res, next){
+router.get('/user/signin', function(req, res, next){
     var messages = req.flash('error');
-    res.render('user/signin', {csrfToken : req.csrfToken(), messages : messages, hasErrors : messages.length > 0});
+    res.render('users/signin', {csrfToken : req.csrfToken(), messages : messages, hasErrors : messages.length > 0});
 });
 
 router.post('/user/signin', passport.authenticate('local.signin', {
