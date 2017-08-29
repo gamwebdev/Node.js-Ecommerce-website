@@ -47,3 +47,37 @@ passport.use('local.signup', new LocalStrategy({
 		});
 	});
 }));
+
+passport.use('local.signin', new LocalStrategy({
+	usernameField 		: 'email',
+	passwordField		: 'password',
+	passReqToCallback 	:  true
+}, function(req, email, password, done){
+
+	req.checkBody('email', 'Invalid email').notEmpty().isEmail();
+	req.checkBody('password', 'Invalid password').notEmpty().isLength({min:4});
+	var errors = req.validationErrors(); // array
+	if(errors){
+		var messages = [];
+		errors.forEach(function(error){
+			messages.push(error.msg);
+		});
+		return done(null, false, req.flash('error', messages)); // false means req was not successfull because of validation and null means no technical error
+	}
+
+	User.findOne({'email' : email}, function(err, user){
+		if(err){
+			return done(err);
+		}
+		if(!user){
+			return done(null, false, {message:'User not found'});
+		}
+
+		if(!user.validPassword(password)){
+			return done(null, false, {message: 'Password Does not match OR wrong password'});
+		}
+
+		return done(null, user);
+	});
+
+}));
