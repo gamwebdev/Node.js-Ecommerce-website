@@ -1,6 +1,6 @@
 var express 		= require('express');
 var router 			= express.Router();
-var csrf 			  = require('csurf');
+var csrf 			= require('csurf');
 var passport 		= require('passport');
 
 var csrfProtection  = csrf();
@@ -28,9 +28,23 @@ router.post('/signin', passport.authenticate('local.signin', {
   failureFlash  : true 
 }));
 
-router.get('/profile', function(req, res, next){
+router.get('/profile', isLoggedIn, function(req, res, next){
 	res.render('users/profile');
 });
+
+router.get('logout', function(req, res, next){
+	req.logout();   		// passport method
+	res.redirect('/');
+});
+
+
+function isLoggedIn(req, res, next){
+	if(req.isAuthenticated()){ // method of passport
+		return next();
+	}
+	res.redirect('/');
+}
+
 
 
 module.exports = router;
