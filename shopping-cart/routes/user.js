@@ -40,7 +40,7 @@ router.post('/signin', passport.authenticate('local.signin', {
 }));
 
 
-router.get('logout', function(req, res, next){ // logout functionality not working properly
+router.get('/logout', function(req, res, next){ // logout functionality not working properly
 	req.logout();   		// passport method
 	res.redirect('/');
 });
